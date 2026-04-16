@@ -1,82 +1,167 @@
-
+/* ----- box sizing & reset ----- */
 * {
-    box-sizing: border-box;
-  }
-  
-  body {
-    font-family: helvetica, arial, sans-serif;
-    margin: 25px;
-  }
-  
-  main {
-    display:block;
-    height:175px;
-  }
-  
-  header {
-    border-bottom: 1px solid black;
-  }
-  
-  h1 {
-    font-weight: bold;
-    color: #000;
-  }
-  
-  .bold {
-    font-weight: bold;
-  }
-  
-  p {
-    max-width: 600px;
-  }
-  
-  
-  li {
-    margin-bottom: 5px;
-  }
-  
-  footer {
-    padding-top: 25px;
-    border-top: 1px solid black;
-  }
-  
-  footer a {
-    float:left;
-    margin:5px;
-  }
-  
-  .pet-image {
-    height:250px;
-  }
-  
-  .dashboard div {
-    display:block;
-  }
-  
-  .pet-image-container {
-    float:left;
-    padding:10px;
-  }
-  
-  .dashboard {
-    float:left;
-    padding:20px;
-  }
-  
-  .button-container {
-    margin-top:20px;
-  }
-  
-  .button-container button {
-    width: 100px;
-      margin-right: 10px;
-      text-align: center;
-      display: inline-block;
-      float: left;
-    font-size:15px;
-    background-color: #1e2835;
-    border-color: #404853;
-    cursor:pointer;
-    background-image: linear-gradient(to bottom,rgba(246,246,246,.1)0%,rgba(30,40,53,0)66%);
-    color: #fafafa;
-  }
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  background: #333333;
+}
+
+/* ----- typography & base styles ----- */
+body {
+  font-family: "Roboto", sans-serif;
+  font-size: 100%;
+  width: 80%;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 2.5% 2.5% 0;
+  background: #ffffff;
+  line-height: 1.8;
+  color: #4a4a4a;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #4a4a4a;
+  font-family: "Oswald", sans-serif;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0 0 0.3em 0;
+}
+
+h1 {
+  font-size: 3em;
+  margin-bottom: 0.3em;
+  color: #9d110e;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 2.2em;
+  font-weight: 600;
+}
+
+h3 {
+  font-size: 1.6em;
+  font-weight: 500;
+}
+
+p {
+  margin-bottom: 1em;
+  max-width: 600px; /* keeps text readable */
+}
+
+a {
+  color: #d1110e;
+}
+a:hover {
+  color: #9d110e;
+}
+
+/* ----- pet dashboard ----- */
+main {
+  display: block;
+  height: auto; /* removed fixed height to fit content */
+  overflow: hidden; /* clear floats */
+}
+
+header {
+  border-bottom: 1px solid black;
+  margin-bottom: 1.5em;
+}
+
+.pet-image-container {
+  float: left;
+  padding: 10px;
+}
+
+.pet-image {
+  height: 250px;
+  width: auto;
+  border-radius: 8px;
+  border: 2px solid #4a4a4a;
+  object-fit: cover;
+}
+
+.dashboard {
+  float: left;
+  padding: 20px;
+  background: #f9f9f9; /* background for contrast */
+  border-radius: 8px;
+  margin-left: 10px;
+}
+
+.dashboard div {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 1.1em;
+}
+
+.button-container {
+  margin-top: 20px;
+}
+
+.button-container button {
+  width: 100px;
+  margin-right: 10px;
+  text-align: center;
+  display: inline-block;
+  float: left;
+  font-size: 15px;
+  background-color: #1e2835;
+  border-color: #404853;
+  cursor: pointer;
+  background-image: linear-gradient(
+    to bottom,
+    rgba(246, 246, 246, 0.1) 0%,
+    rgba(30, 40, 53, 0) 66%
+  );
+  color: #fafafa;
+  padding: 8px 0;
+  border-radius: 4px;
+  border: none;
+  transition: background 0.2s;
+}
+.button-container button:hover {
+  background-color: #2c3e50;
+}
+
+/* ----- pet message (the unique jQuery effects) ----- */
+.pet-message {
+  background-color: #f9f9f9;
+  border-left: 5px solid #ff9800;
+  padding: 10px;
+  margin-top: 15px;
+  font-style: italic;
+  border-radius: 4px;
+  font-family: "Roboto", sans-serif;
+  color: #333;
+  clear: both;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* ----- utility (clear floats) ----- */
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* ----- footer  ----- */
+footer {
+  padding-top: 25px;
+  border-top: 1px solid black;
+  margin-top: 2em;
+  text-align: center;
+  font-size: 0.8em;
+}
+footer a {
+  float: left;
+  margin: 5px;
+}

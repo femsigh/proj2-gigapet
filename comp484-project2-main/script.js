@@ -20,8 +20,6 @@ function clickedTreatButton() {
   // Increase pet weight
   pet_info.weight += 1; //so it doesn't go into the negatives when we decrease it in the play and exercise buttons
   checkWeightAndHappinessBeforeUpdating(); // Use the shared clamping function.
-  if (pet_info.happiness < 0) pet_info.happiness = 0;
-  if (pet_info.weight < 0) pet_info.weight = 0;
   checkAndUpdatePetInfoInHtml();
   showPetMessage("Yummy! Thank you!");
 }
@@ -29,12 +27,9 @@ function clickedTreatButton() {
 function clickedPlayButton() {
   // Increase pet happiness
   pet_info.happiness += 1;
-  pet_info.weight -= 1;
+  pet_info.weight -= 1; // Decrease pet weight
   checkWeightAndHappinessBeforeUpdating();
-  checkAndUpdatePetInfoInHtml();
   showPetMessage("Wheeeee! *chirp*");
-
-  // Decrease pet weight
   checkAndUpdatePetInfoInHtml();
 }
 
@@ -65,7 +60,7 @@ function checkWeightAndHappinessBeforeUpdating() {
   if (pet_info.weight < 0) pet_info.weight = 0;
   if (pet_info.happiness < 0) pet_info.happiness = 0;
 }
-// Updates your HTML with the current values in your pet_info object
+// Updates HTML with the current values in your pet_info object
 function updatePetInfoInHtml() {
   $(".name").text(pet_info["name"]);
   $(".weight").text(pet_info["weight"]);
