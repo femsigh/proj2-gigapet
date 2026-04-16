@@ -8,6 +8,7 @@ $(function () {
   $(".treat-button").click(clickedTreatButton);
   $(".play-button").click(clickedPlayButton);
   $(".exercise-button").click(clickedExerciseButton);
+  $(".sleep-button").click(clickedSleepButton); //one handler
 });
 
 // Add a variable "pet_info" equal to a object with the name (string), weight (number), and happiness (number) of your pet
@@ -18,6 +19,7 @@ function clickedTreatButton() {
   pet_info.happiness += 2;
   // Increase pet weight
   pet_info.weight += 1; //so it doesn't go into the negatives when we decrease it in the play and exercise buttons
+  checkWeightAndHappinessBeforeUpdating(); // Use the shared clamping function.
   if (pet_info.happiness < 0) pet_info.happiness = 0;
   if (pet_info.weight < 0) pet_info.weight = 0;
   checkAndUpdatePetInfoInHtml();
@@ -26,7 +28,11 @@ function clickedTreatButton() {
 
 function clickedPlayButton() {
   // Increase pet happiness
-    pet_info.happiness += 1;
+  pet_info.happiness += 1;
+  pet_info.weight -= 1;
+  checkWeightAndHappinessBeforeUpdating();
+  checkAndUpdatePetInfoInHtml();
+  showPetMessage("Wheeeee! *chirp*");
 
   // Decrease pet weight
   checkAndUpdatePetInfoInHtml();
@@ -35,7 +41,18 @@ function clickedPlayButton() {
 function clickedExerciseButton() {
   // Decrease pet happiness
   // Decrease pet weight
+  pet_info.happiness -= 1;
+  pet_info.weight -= 1;
+  checkWeightAndHappinessBeforeUpdating();
   checkAndUpdatePetInfoInHtml();
+  showPetMessage("Phew! That was a good workout! *chirp*");
+}
+function clickedSleepButton() {
+  //sleep will increase happiness, but not weight
+  pet_info.happiness += 3;
+  checkWeightAndHappinessBeforeUpdating();
+  checkAndUpdatePetInfoInHtml();
+  showPetMessage("..Zzz...");
 }
 
 function checkAndUpdatePetInfoInHtml() {
@@ -48,25 +65,24 @@ function checkWeightAndHappinessBeforeUpdating() {
   if (pet_info.weight < 0) pet_info.weight = 0;
   if (pet_info.happiness < 0) pet_info.happiness = 0;
 }
-$('.sleep-button').click(clickedSleepButton);
-function clickedSleepButton() { //sleep will increase happiness, but not weight
-  pet_info.happiness += 3; 
-  checkWeightAndHappinessBeforeUpdating();
-  checkAndUpdatePetInfoInHtml();
-  showPetMessage("..Zzz...")
-}
-function showPetMessage(msg) {
-  $('.pet-message').remove(); // Remove any existing pet messages before showing a new one
-  var $message = $('<div class="pet-message">' + msg + '</div>');
-  $('.dashboard').append($message);
-  // Use slideDown + delay + slideUp : two unique methods
-  $message.hide().slideDown(300).delay(2000).slideUp(500, function() { //.slideDown() - animates the height of the element from 0 to its full height. Parameters: duration (in milliseconds), callback function when done
-    $(this).remove();
-  });
-}
 // Updates your HTML with the current values in your pet_info object
 function updatePetInfoInHtml() {
   $(".name").text(pet_info["name"]);
   $(".weight").text(pet_info["weight"]);
   $(".happiness").text(pet_info["happiness"]);
+}
+
+function showPetMessage(msg) {
+  $(".pet-message").remove(); // Remove any existing pet messages before showing a new one
+  var $message = $('<div class="pet-message">' + msg + "</div>");
+  $(".dashboard").append($message);
+  // Use slideDown + delay + slideUp : two unique methods
+  $message
+    .hide()
+    .slideDown(300)
+    .delay(2000)
+    .slideUp(500, function () {
+      //.slideDown() - animates the height of the element from 0 to its full height. Parameters: duration (in milliseconds), callback function when done
+      $(this).remove();
+    });
 }
